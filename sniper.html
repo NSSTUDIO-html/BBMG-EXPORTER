@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SEPCIAL_SNIPER</title>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'https://esm.sh/three@0.158.0';
+      import { OrbitControls } from 'https://esm.sh/three@0.158.0/examples/jsm/controls/OrbitControls';
+      const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+      
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      const light = new THREE.PointLight(0xffffff, 1);
+      light.position.set(10, 10, 10);
+      scene.add(light);
+      scene.add(new THREE.AmbientLight(0xffffff));
+      
+      
+      
+      
+    function sniper(){
+      const s = new THREE.Group();
+      const material = new THREE.MeshStandardMaterial({ color: 0x000000 });
+    const material3 = new THREE.MeshStandardMaterial({ color: 0x00ff00,transparent:true,opacity:0.5 });
+    
+      const textureLoaderRS = new THREE.TextureLoader();
+    const texture9N = textureLoaderRS.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKngULpRDvKvVe5xYcFvGCMwQZcjAzIS_GYHO59lZVuqxPkg1_tyfeo2g7&s=10');
+      const material9 = new THREE.MeshStandardMaterial({ map:texture9N });
+      
+      //const textureLoaderRS = new THREE.TextureLoader();
+    const texture0N = textureLoaderRS.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ667exAKE95eAeZUEcIt3LzGOsRaeAb-3hgZOb4nUtKtXR6hmOx_N600Y&s=10');
+      const material0 = new THREE.MeshStandardMaterial({ map:texture0N });
+      
+      //const textureLoaderRS = new THREE.TextureLoader();
+    const texture1N = textureLoaderRS.load('');
+      const material1 = new THREE.MeshStandardMaterial({ map:texture1N });
+      
+      //const textureLoaderRS = new THREE.TextureLoader();
+    const texture2N = textureLoaderRS.load('');
+      const material2 = new THREE.MeshStandardMaterial({ map:texture1N });
+      
+      const cyl = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 2, 32), material0);
+      cyl.position.x = 2;
+      cyl.rotation.set(0,0,Math.PI/2);
+      cyl.scale.set(0.3,6,0.3);
+      s.add(cyl);
+      
+      const cyl4 = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 2, 32), material);
+      cyl4.position.x = 2;
+      cyl4.rotation.set(0,0,Math.PI/2);
+      cyl4.scale.set(0.2,6.1,0.2);
+      s.add(cyl4);
+      
+      const cyl1 = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 2, 32), material);
+      cyl1.position.set(3,1.5,0);
+      cyl1.rotation.set(0,0,0);
+      cyl1.scale.set(0.3,0.2,0.3);
+      s.add(cyl1);
+      
+      const cyl41 = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 2, 32), material3);
+      cyl41.position.set(3,1,0);
+      cyl41.rotation.set(0,0,Math.PI/2);
+      cyl41.scale.set(0.5,2,0.5);
+      s.add(cyl41);
+      
+      const cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material9);
+      cube.position.set(5,-0.5,0);
+      cube.scale.set(2,1,0.5);
+      s.add(cube);
+      const cube2 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material9);
+      cube2.position.set(11,-1.7,0);
+      cube2.scale.set(2,1,0.5);
+      s.add(cube2);
+      
+      const cube1 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material9);
+      cube1.position.set(8.3,-1.3,0);
+      cube1.scale.set(2,1.1,0.51);
+      cube1.rotation.set(0,0,-Math.PI/6);
+      s.add(cube1);
+      
+      const cube4 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material);
+      cube4.position.set(6.5,-2,0);
+      cube4.scale.set(0.2,0.8,0.2);
+      s.add(cube4);
+      const cube45 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material);
+      cube45.position.set(7.8,-2.9,0);
+      cube45.scale.set(0.2,1.5,0.2);
+      cube45.rotation.set(0,0,Math.PI/2);
+      s.add(cube45);
+      
+      const cube46 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material);
+      cube46.position.set(7.7,-1.8,0);
+      cube46.scale.set(0.2,0.8,0.2);
+      cube46.rotation.set(0,0,-Math.PI/6);
+      
+      s.add(cube46);
+      
+      const torus = new THREE.Mesh(new THREE.TorusGeometry(1, 0.2, 16, 100), material);
+      torus.position.set(3,1,0);
+      torus.scale.set(0.5,0.5,12);
+      torus.rotation.set(0,Math.PI/2,0);
+      s.add(torus);
+      scene.add(s);
+      s.position.set(-5,0,0);
+    }sniper()
+      camera.position.z = 20;
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
+  </body>
+</html>

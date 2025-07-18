@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KATANA-X#</title>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'https://esm.sh/three@0.158.0';
+      import { OrbitControls } from 'https://esm.sh/three@0.158.0/examples/jsm/controls/OrbitControls';
+      const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+      
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      const light = new THREE.PointLight(0xffffff, 1);
+      light.position.set(10, 10, 10);
+      scene.add(light);
+      scene.add(new THREE.AmbientLight(0xffffff));
+      
+    
+      
+      
+      
+    
+    function k(){
+      const material = new THREE.MeshStandardMaterial({ color: 0x000000 });
+      const material1 = new THREE.MeshStandardMaterial({ color: 0xffffff ,metalness:0.8,roughness:0.2 });
+      
+      //sword
+      const cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material1);
+      cube.position.set(0,0,0);
+      cube.scale.set(0.4,5,0.01);
+      
+      scene.add(cube);
+      
+      const cyl = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 2, 32), material);
+      cyl.position.set(0,5,0);
+      cyl.scale.set(1,0.2,1);
+      scene.add(cyl);
+      
+      const cyl1 = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 2, 32), material);
+      cyl1.position.set(0,7,0);
+      cyl1.scale.set(0.5,2,0.5);
+      scene.add(cyl1);
+      
+      const sphere = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32), material);
+      sphere.position.set(0,9,0);
+      sphere.scale.set(0.5,0.5,0.5);
+      scene.add(sphere);
+      
+      const torus = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 100), material);
+      torus.position.set(0,4,0);
+      torus.scale.set(0.7,0.7,0.7);
+      scene.add(torus);
+      
+    }k()
+      camera.position.set(0,12,10);
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
+  </body>
+</html>

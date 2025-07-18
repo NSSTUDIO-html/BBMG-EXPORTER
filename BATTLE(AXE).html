@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BATTLE_AXE:COM</title>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'https://esm.sh/three@0.158.0';
+      import { OrbitControls } from 'https://esm.sh/three@0.158.0/examples/jsm/controls/OrbitControls';
+      const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+      
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      const light = new THREE.PointLight(0xffffff, 1);
+      light.position.set(10, 10, 10);
+      scene.add(light);
+      scene.add(new THREE.AmbientLight(0xffffff));
+      
+    const material = new THREE.MeshStandardMaterial({ color: 0x0000000 });
+      
+      
+      
+      
+    
+    function axe(){
+      const axe = new THREE.Group();
+      const material1 = new THREE.MeshStandardMaterial({ color: 0x222222 });
+      
+      const textureLoaderRS = new THREE.TextureLoader();
+    const texture0N = textureLoaderRS.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ667exAKE95eAeZUEcIt3LzGOsRaeAb-3hgZOb4nUtKtXR6hmOx_N600Y&s=10');
+      const material0 = new THREE.MeshStandardMaterial({ map:texture0N });
+      
+      const texture1N = textureLoaderRS.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh2-r6jaxnMo4PScwRzSbLtNLhupO-U6jAeHSiXeWq-p8EXqys5NIZjhk&s=10');
+      const material3 = new THREE.MeshStandardMaterial({ map:texture1N });
+      
+      const texture2N = textureLoaderRS.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLnqtiNDdTMzGT7_YIJs24hg8EIcSBfB22aS3DTlVQ8R1mGu7uAR6mpN37&s=10');
+      const material2 = new THREE.MeshStandardMaterial({ map:texture2N });
+      
+      const cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material0);
+      cube.position.set(-0.9,1,0);
+      cube.scale.set(1,0.5,0.1);
+      cube.rotation.set(0,0,-Math.PI/6);
+      scene.add(cube);
+      const cube2 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material0);
+      cube2.position.set(-1,0,0);
+      cube2.scale.set(1,1.1,0.1);
+      cube2.rotation.set(0,0,Math.PI);
+      scene.add(cube2);
+      const cube1 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material0);
+      cube1.position.set(-0.9,-1,0);
+      cube1.scale.set(1,0.5,0.1);
+      cube1.rotation.set(0,0,Math.PI/6);
+      scene.add(cube1);
+      
+      
+      const cube13 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material0);
+      cube13.position.set(0.9,1,0);
+      cube13.scale.set(1,0.5,0.1);
+      cube13.rotation.set(0,0,Math.PI/6);
+      scene.add(cube13);
+      const cube21 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material0);
+      cube21.position.set(1,0,0);
+      cube21.scale.set(1,1.1,0.1);
+      cube21.rotation.set(0,0,Math.PI);
+      scene.add(cube21);
+      const cube11 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material0);
+      cube11.position.set(0.9,-1,0);
+      cube11.scale.set(1,0.5,0.1);
+      cube11.rotation.set(0,0,-Math.PI/6);
+      scene.add(cube11);
+      
+      
+      const cyli = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 2, 32), material2);
+      cyli.position.set(0,-5,0);
+      cyli.scale.set(0.2,5,0.2);
+      
+      const sphere = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32), material2);
+      sphere.position.set(0,0,0);
+      sphere.scale.set(0.5,1.3,0.5);
+      scene.add(sphere);
+      
+      const torus = new THREE.Mesh(new THREE.TorusGeometry(0.7, 0.5, 16, 100), material3);
+      torus.position.set(0,0,0);
+      scene.add(torus);
+      
+      scene.add(cyli);
+      
+    }axe()
+      camera.position.z = 10;
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
+  </body>
+</html>
