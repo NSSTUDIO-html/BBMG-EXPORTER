@@ -22,7 +22,17 @@
       
   
     const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xffffff);
+  // Load image as texture
+      const loader = new THREE.TextureLoader();
+      loader.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3vJ6iIQuWW2ZSAovc1L5EnikxYXaxfFwxtXWqo3u3QEeg9nf2NGbDMmU&s=10', function(texture) {
+        const geometry = new THREE.BoxGeometry(500, 500, 500); // Big sky sphere
+        const material = new THREE.MeshBasicMaterial({
+          map: texture,
+          side: THREE.BackSide  // Flip inside out
+        });
+        const sky = new THREE.Mesh(geometry, material);
+        scene.add(sky);
+      });
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
