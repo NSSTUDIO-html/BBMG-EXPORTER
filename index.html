@@ -540,7 +540,29 @@
     cube681.scale.set(2.3,0.2,1.4);
       SB.add(cube681);
     
+    //vehicle logo
+    const texture4N = textureLoaderRS.load('./BBMG2.jpg');
+    const material6 = new THREE.MeshStandardMaterial({ map:texture4N });
+      
+    const cube682 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material6);
+      cube682.position.set(0,3.7,-4.5);
+    cube682.rotation.x = Math.PI/6;
+    cube682.scale.set(2.5,0.2,1.7);
+      SB.add(cube682);
+    
     //side glasses
+    const material7 = new THREE.MeshStandardMaterial({ color:0x00ffff,transparent:true,opacity:0.4 });
+    
+    const cub682 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material7);
+      cub682.position.set(-3.5,2,-10.6);
+    cub682.rotation.z = Math.PI/2;
+    cub682.scale.set(2.5,0.2,5);
+      SB.add(cub682);
+    const cue682 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material7);
+      cue682.position.set(3.5,2,-10.6);
+    cue682.rotation.z = Math.PI/2;
+    cue682.scale.set(2.5,0.2,5);
+      SB.add(cue682);
     
     scene.add(SB);
   }SEATBASE()
