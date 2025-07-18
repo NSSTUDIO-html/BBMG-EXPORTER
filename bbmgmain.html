@@ -6,18 +6,20 @@
      <style>
     body { margin: 0; overflow: hidden; }
     canvas { display: block; }
-   #exportBtn{
-     
+   #eBtn{
+     position:relative;
+     top:0px;
   z-index: 999;
   padding: 10px 20px;
   font-size: 16px;
-  background:linear-gradient(to right,purple,blue,cyan);
+     color:white;
+     border:5px outset black;
+  background: linear-gradient(120deg,black,blue);
 
    }
   </style>
     </head>
 <body>
-  <button id="exportBtn">Export BBMG</button>
 
 <script type="module">
   
@@ -884,17 +886,15 @@
       torus.position.set(0,4,0);
       torus.scale.set(0.7,0.7,0.7);
       k.add(torus);
+    
     
     scene.add(k);
     k.scale.set(0.7,0.7,0.7);
     k.position.set(-5,-1,-22);
       
     }k()
-  }
-  const bbmgG = bbmgGroup();
-  scene.add(bbmgG);
-  window.bbmgGroup = bbmgG;
-  
+  }bbmgGroup()
+   
       camera.position.set(10,0,-50);
       function animate() {
         requestAnimationFrame(animate);
@@ -904,40 +904,6 @@
       }
       animate();
   </script>
-  <!-- Add inside your HTML body -->
-
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/exporters/GLTFExporter.js"></script>
-
-<script>
-  // Wait till everything is ready
-  window.addEventListener('load', () => {
-    const exportBtn = document.getElementById('exportBtn');
-
-    exportBtn.addEventListener('click', function () {
-      const exporter = new THREE.GLTFExporter();
-
-      if (!window.bbmgGroup) {
-        alert("bbmgGroup not found!");
-        return;
-      }
-
-      exporter.parse(
-        window.bbmgGroup,
-        function (result) {
-          const output = JSON.stringify(result);
-          const blob = new Blob([output], { type: 'application/json' });
-
-          const link = document.createElement('a');
-          link.href = URL.createObjectURL(blob);
-          link.download = 'bbmg_model.gltf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        },
-        { binary: false }
-      );
-    });
-  });
-</script>
+  
 </body>
 </html>
