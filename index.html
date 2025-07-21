@@ -933,45 +933,32 @@
 
 <script>
   function exportGLB() {
-    console.log("Clicked export button");
+  console.log("Clicked export button");
 
-    if (!window.BMG1) {
-      console.log("❌ BMG1 is undefined");
-      alert("BMG1 is not defined yet!");
-      return;
-    }
+  if (!window.BMG1) {
+    console.log("❌ BMG1 is undefined");
+    alert("BMG1 is not defined yet!");
+    return;
+  }
 
-    console.log("✅ BMG1 exists with children:", window.BMG1.children.length);
+  const exporter = new THREE.GLTFExporter();
+  exporter.parse(
+    window.BMG1,
+    function (result) {
+      const blob = new Blob([result], { type: 'model/gltf-binary' });
+      const url = URL.createObjectURL(blob);
 
-    const exporter = new THREE.GLTFExporter();
-    exporter.parse(
-      window.BMG1,
-      function (result) {
-        console.log("✅ Export parse callback triggered");
+      // ✅ Open the file in a new tab
+      window.open(url, '_blank');
 
-        const blob = new Blob([result], { type: 'model/gltf-binary' });
-
-        // Fix for mobile: create object URL and open in new tab
-        const url = URL.createObjectURL(blob);
-
-        // Trigger download using an anchor
-        const link = document.createElement('a');
-        link.style.display = 'none';
-        link.href = url;
-        link.download = 'BMG1.glb';
-
-        document.body.appendChild(link);
-        link.click();
-
-        // Clean up
-        setTimeout(() => {
-          document.body.removeChild(link);
-          URL.revokeObjectURL(url);
-          console.log("🧹 Cleaned up download link and URL");
-        }, 100);
-      },
-      { binary: true }
-    );
+      // Optional: revoke URL after some time
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+        console.log("🧹 Cleaned up object URL");
+      }, 5000);
+    },
+    { binary: true }
+  );
   }
 </script>
     
