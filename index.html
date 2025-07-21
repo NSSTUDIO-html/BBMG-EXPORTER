@@ -31,7 +31,14 @@
   color: #0f0; font-family: monospace;
   font-size: 12px; z-index: 9999;
 "></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/exporters/GLTFExporter.js"></script>
 
+
+  
+
+    <button onclick="exportGLB()">Download BMG1 Model</button>
+    
+  
 <script>
   const debugConsole = document.getElementById('debugConsole');
   console.log = function(msg) {
@@ -924,13 +931,8 @@
         renderer.render(scene, camera);
       }
       animate();
-</script>
-    
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/exporters/GLTFExporter.js"></script>
-
-<script>
-  function exportGLB() {
+function exportGLB() {
     console.log('🔹 export triggered');
 
     const group = window.BMG1;
@@ -968,10 +970,11 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.m
 
       setTimeout(() => URL.revokeObjectURL(url), 10000);
     }, { binary: true });
-  }
-</script>
-    <button onclick="exportGLB()">Download BMG1 Model</button>
+}
     
-  
+</script>
+    
+
+
 </body>
 </html>
