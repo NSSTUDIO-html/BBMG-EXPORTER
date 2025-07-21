@@ -925,40 +925,48 @@
       }
       animate();
 </script>
-    <button onclick="exportGLB()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-  Download BMG1.glb
-</button>
+    <button onclick="exportGLB()">Download BMG1 Model</button>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/exporters/GLTFExporter.js"></script>
 
 <script>
   function exportGLB() {
-  console.log("Clicked export button");
+    console.log('🔹 export triggered');
 
-  if (!window.BMG1) {
-    console.log("❌ BMG1 is undefined");
-    alert("BMG1 is not defined yet!");
-    return;
-  }
+    const group = window.BMG1;
+    if (!group || group.children.length === 0) {
+      alert("Model is not loaded or empty!");
+      return;
+    }
 
-  const exporter = new THREE.GLTFExporter();
-  exporter.parse(
-    window.BMG1,
-    function (result) {
+    const exporter = new THREE.GLTFExporter();
+
+    exporter.parse(group, function (result) {
+      console.log('✅ GLTF parsed');
+
       const blob = new Blob([result], { type: 'model/gltf-binary' });
       const url = URL.createObjectURL(blob);
 
-      // ✅ Open the file in a new tab
-      window.open(url, '_blank');
+      const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
-      // Optional: revoke URL after some time
-      setTimeout(() => {
-        URL.revokeObjectURL(url);
-        console.log("🧹 Cleaned up object URL");
-      }, 5000);
-    },
-    { binary: true }
-  );
+      if (isMobile) {
+        // Mobile workaround: open in new tab
+        window.open(url, '_blank');
+        alert("If download didn't start, long press the 3D model tab and tap Download.");
+      } else {
+        // Desktop: auto-download
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'BMG1.glb';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        console.log('📁 Download triggered');
+      }
+
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    }, { binary: true });
   }
 </script>
     
