@@ -34,8 +34,8 @@
 
   
 
-    <button onclick="exportGLB()">Export GLB</button>
-<script>
+    <button onclick="exportGLB()">Export 3D Model (.glb)</button>
+    <script>
   const debugConsole = document.getElementById('debugConsole');
   console.log = function(msg) {
     debugConsole.innerText += msg + '\n';
@@ -78,7 +78,7 @@
      import { pistol2 } from './p1.js';
      import { mg } from './mg.js';
      import { ft } from './ft.js';
-    window.BMG1 = new THREE.Group();
+    const BMG1 = new THREE.Group();
      function bbmgGroup(){
   function ic(){
   BMG1.add(icegun);
@@ -919,10 +919,10 @@
     k.position.set(-5,-1,-22);
       
     }k()
+         window.BMG1 = BMG1;
   }bbmgGroup()
-    scene.add(window.BMG1);
-    //window.BMG1 = BMG1; // 👈
-   
+    scene.add(BMG1);
+    
       camera.position.set(10,0,-50);
       function animate() {
         requestAnimationFrame(animate);
@@ -934,28 +934,25 @@
 
 
   window.exportGLB = function () {
-    if (!BMG1) {
-      console.error("❌ BMG1 group not found!");
-      return;
-    }
+  if (!window.BMG1) {
+    console.error("❌ BMG1 group not found!");
+    return;
+  }
 
-    const exporter = new GLTFExporter();
-    exporter.parse(
-      BMG1,
-      function (result) {
-        const blob = new Blob([JSON.stringify(result)], { type: 'application/json' });
-
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'BMG1_Model.glb';
-        link.click();
-
-        console.log("✅ Export successful");
-      },
-      { binary: true } // For .glb format
-    );
-  };
-
+  const exporter = new GLTFExporter();
+  exporter.parse(
+    window.BMG1,
+    function (result) {
+      const blob = new Blob([result], { type: 'application/octet-stream' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'BMG1_Model.glb';
+      link.click();
+      console.log("✅ Export successful");
+    },
+    { binary: true }
+  );
+};
     
 </script>
     
