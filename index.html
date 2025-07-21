@@ -23,7 +23,22 @@
   </style>
     </head>
 <body>
-    
+    <div id="debugConsole" style="
+  position: fixed; top: 0; left: 0;
+  width: 100%; max-height: 150px;
+  overflow-y: auto;
+  background: rgba(0,0,0,0.7);
+  color: #0f0; font-family: monospace;
+  font-size: 12px; z-index: 9999;
+"></div>
+
+<script>
+  const debugConsole = document.getElementById('debugConsole');
+  console.log = function(msg) {
+    debugConsole.innerText += msg + '\n';
+  };
+  console.error = console.log;
+</script>
 <script type="module">
   
       import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
@@ -898,7 +913,7 @@
       
     }k()
   }bbmgGroup()
-    scene.add(BMG1);
+    scene.add(window.BMG1);
     //window.BMG1 = BMG1; // 👈
    
       camera.position.set(10,0,-50);
@@ -910,31 +925,37 @@
       }
       animate();
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/exporters/GLTFExporter.js"></script>
+    <button onclick="exportGLB()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+  Download BMG1.glb
+</button>
 
-    <button onclick="exportModel()">Download BMG1 as GLB</button>
-    <script>
-  function exportModel() {
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/exporters/GLTFExporter.js"></script>
+<script>
+  function exportGLB() {
+    console.log("Clicked export button");
     if (!window.BMG1) {
-      alert("BMG1 not found!");
+      console.log("❌ BMG1 is undefined");
+      alert("BMG1 is not defined yet!");
       return;
     }
+    console.log("✅ BMG1 exists with children:", window.BMG1.children.length);
 
     const exporter = new THREE.GLTFExporter();
-
     exporter.parse(
-      BMG1,
-      function (result) {
-        const blob = new Blob([JSON.stringify(result)], { type: 'application/json' });
+      window.BMG1,
+      function (data) {
+        console.log("✅ Export parse callback triggered");
+        const blob = new Blob([data], { type: 'model/gltf-binary' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.download = 'BMG1.glb';
+        console.log("➡️ Initiating download");
         link.click();
       },
       { binary: true }
     );
   }
-    </script>
+</script>
     
     
   
