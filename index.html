@@ -936,6 +936,17 @@
     );
   };
 </script>
-  
+  <script>
+  (function () {
+    const log = document.createElement('div');
+    log.style.cssText = 'position:fixed;bottom:0;left:0;width:100%;max-height:200px;overflow:auto;background:#000;color:#0f0;font-size:12px;z-index:9999;';
+    document.body.appendChild(log);
+    const oldLog = console.log;
+    console.log = function (message) {
+      log.innerHTML += message + '<br>';
+      oldLog.apply(console, arguments);
+    };
+  })();
+  </script>
 </body>
 </html>
