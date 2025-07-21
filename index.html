@@ -930,27 +930,45 @@
 </button>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/exporters/GLTFExporter.js"></script>
+
 <script>
   function exportGLB() {
     console.log("Clicked export button");
+
     if (!window.BMG1) {
       console.log("❌ BMG1 is undefined");
       alert("BMG1 is not defined yet!");
       return;
     }
+
     console.log("✅ BMG1 exists with children:", window.BMG1.children.length);
 
     const exporter = new THREE.GLTFExporter();
     exporter.parse(
       window.BMG1,
-      function (data) {
+      function (result) {
         console.log("✅ Export parse callback triggered");
-        const blob = new Blob([data], { type: 'model/gltf-binary' });
+
+        const blob = new Blob([result], { type: 'model/gltf-binary' });
+
+        // Fix for mobile: create object URL and open in new tab
+        const url = URL.createObjectURL(blob);
+
+        // Trigger download using an anchor
         const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
+        link.style.display = 'none';
+        link.href = url;
         link.download = 'BMG1.glb';
-        console.log("➡️ Initiating download");
+
+        document.body.appendChild(link);
         link.click();
+
+        // Clean up
+        setTimeout(() => {
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+          console.log("🧹 Cleaned up download link and URL");
+        }, 100);
       },
       { binary: true }
     );
