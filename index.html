@@ -31,14 +31,10 @@
   color: #0f0; font-family: monospace;
   font-size: 12px; z-index: 9999;
 "></div>
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/exporters/GLTFExporter.js"></script>
-
 
   
 
-    <button onclick="exportGLB()">Download BMG1 Model</button>
-    
-  
+    <button onclick="exportGLB()">Export GLB</button>
 <script>
   const debugConsole = document.getElementById('debugConsole');
   console.log = function(msg) {
@@ -48,8 +44,12 @@
 </script>
 <script type="module">
   
-      import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
-   import { OrbitControls } from 'https://esm.sh/three@0.158.0/examples/jsm/controls/OrbitControls';
+      
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+  import { GLTFExporter } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/exporters/GLTFExporter.js';
+
+  // Assuming BMG1 is already defined globally
+    import { OrbitControls } from 'https://esm.sh/three@0.158.0/examples/jsm/controls/OrbitControls';
       
   
     const scene = new THREE.Scene();
@@ -932,44 +932,30 @@
       }
       animate();
 
-function exportGLB() {
-    console.log('🔹 export triggered');
 
-    const group = window.BMG1;
-    if (!group || group.children.length === 0) {
-      alert("Model is not loaded or empty!");
+  window.exportGLB = function () {
+    if (!BMG1) {
+      console.error("❌ BMG1 group not found!");
       return;
     }
- 
-    const exporter = new THREE.GLTFExporter();
 
-    exporter.parse(group, function (result) {
-      console.log('✅ GLTF parsed');
+    const exporter = new GLTFExporter();
+    exporter.parse(
+      BMG1,
+      function (result) {
+        const blob = new Blob([JSON.stringify(result)], { type: 'application/json' });
 
-      const blob = new Blob([result], { type: 'model/gltf-binary' });
-      const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'BMG1_Model.glb';
+        link.click();
 
-      const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+        console.log("✅ Export successful");
+      },
+      { binary: true } // For .glb format
+    );
+  };
 
-      if (isMobile) {
-        // Mobile workaround: open in new tab
-        window.open(url, '_blank');
-        alert("If download didn't start, long press the 3D model tab and tap Download.");
-      } else {
-        // Desktop: auto-download
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = 'BMG1.glb';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        console.log('📁 Download triggered');
-      }
-
-      setTimeout(() => URL.revokeObjectURL(url), 10000);
-    }, { binary: true });
-}
     
 </script>
     
