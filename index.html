@@ -34,7 +34,8 @@
 
   
 
-    <button onclick="exportGLB()">Export 3D Model (.glb)</button>
+    <button onclick="window.exportGLB()">Export BMG1 as .glb</button>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/exporters/GLTFExporter.js"></script>
     <script>
   const debugConsole = document.getElementById('debugConsole');
   console.log = function(msg) {
@@ -79,6 +80,7 @@
      import { mg } from './mg.js';
      import { ft } from './ft.js';
     const BMG1 = new THREE.Group();
+    window.BMG1 = BMG1;
      function bbmgGroup(){
   function ic(){
   BMG1.add(icegun);
@@ -919,9 +921,9 @@
     k.position.set(-5,-1,-22);
       
     }k()
-         window.BMG1 = BMG1;
+         
   }bbmgGroup()
-    scene.add(BMG1);
+    scene.add(window.BMG1);
     
       camera.position.set(10,0,-50);
       function animate() {
@@ -939,11 +941,11 @@
     return;
   }
 
-  const exporter = new GLTFExporter();
+  const exporter = new THREE.GLTFExporter();
   exporter.parse(
     window.BMG1,
     function (result) {
-      const blob = new Blob([result], { type: 'application/octet-stream' });
+      const blob = new Blob([result], { type: 'model/gltf-binary' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = 'BMG1_Model.glb';
