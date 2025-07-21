@@ -901,6 +901,7 @@
     }k()
   }bbmgGroup()
     scene.add(BMG1);
+    window.BMG1 = BMG1; // 👈
    
       camera.position.set(10,0,-50);
       function animate() {
@@ -911,24 +912,31 @@
       }
       animate();
 </script>
+    <button onclick="exportGLB()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">Download BMG1</button>
     <script type="module">
-    import { GLTFExporter } from 'https://unpkg.com/three@0.155.0/examples/jsm/exporters/GLTFExporter.js';
+  import { GLTFExporter } from 'https://unpkg.com/three@0.155.0/examples/jsm/exporters/GLTFExporter.js';
 
-window.exportGLB = function () {
-  const exporter = new GLTFExporter();
-  exporter.parse(
-    scene, // your 3D scene
-    function (result) {
-      const blob = new Blob([result], { type: 'application/octet-stream' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'exported_model.glb';
-      link.click();
-    },
-    { binary: true }
-  );
-};
-  </script>
+  window.exportGLB = function () {
+    const exporter = new GLTFExporter();
+
+    if (!window.BMG1) {
+      alert("BMG1 is not available yet!");
+      return;
+    }
+
+    exporter.parse(
+      window.BMG1,
+      function (result) {
+        const blob = new Blob([result], { type: 'application/octet-stream' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'BMG1.glb';
+        link.click();
+      },
+      { binary: true }
+    );
+  };
+</script>
   
 </body>
 </html>
