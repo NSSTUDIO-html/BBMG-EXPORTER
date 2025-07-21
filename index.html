@@ -57,7 +57,7 @@
      import { pistol2 } from './p1.js';
      import { mg } from './mg.js';
      import { ft } from './ft.js';
-    const BMG1 = new THREE.Group();
+    window.BMG1 = new THREE.Group();
      function bbmgGroup(){
   function ic(){
   BMG1.add(icegun);
@@ -900,7 +900,7 @@
     }k()
   }bbmgGroup()
     scene.add(BMG1);
-    window.BMG1 = BMG1; // 👈
+    //window.BMG1 = BMG1; // 👈
    
       camera.position.set(10,0,-50);
       function animate() {
@@ -911,22 +911,22 @@
       }
       animate();
 </script>
-    <button onclick="exportGLB()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">Download BMG1</button>
-    <script type="module">
-  import { GLTFExporter } from 'https://unpkg.com/three@0.155.0/examples/jsm/exporters/GLTFExporter.js';
+    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/exporters/GLTFExporter.js"></script>
 
-  window.exportGLB = function () {
-    const exporter = new GLTFExporter();
-
+    <button onclick="exportModel()">Download BMG1 as GLB</button>
+    <script>
+  function exportModel() {
     if (!window.BMG1) {
-      alert("BMG1 is not available yet!");
+      alert("BMG1 not found!");
       return;
     }
 
+    const exporter = new THREE.GLTFExporter();
+
     exporter.parse(
-      window.BMG1,
+      BMG1,
       function (result) {
-        const blob = new Blob([result], { type: 'application/octet-stream' });
+        const blob = new Blob([JSON.stringify(result)], { type: 'application/json' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.download = 'BMG1.glb';
@@ -934,19 +934,10 @@
       },
       { binary: true }
     );
-  };
-</script>
-  <script>
-  (function () {
-    const log = document.createElement('div');
-    log.style.cssText = 'position:fixed;bottom:0;left:0;width:100%;max-height:200px;overflow:auto;background:#000;color:#0f0;font-size:12px;z-index:9999;';
-    document.body.appendChild(log);
-    const oldLog = console.log;
-    console.log = function (message) {
-      log.innerHTML += message + '<br>';
-      oldLog.apply(console, arguments);
-    };
-  })();
-  </script>
+  }
+    </script>
+    
+    
+  
 </body>
 </html>
