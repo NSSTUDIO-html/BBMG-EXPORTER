@@ -20,6 +20,7 @@
   </style>
     </head>
 <body>
+    <button onclick="exportGLB()" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">Download GLB</button>
 
 <script type="module">
   
@@ -903,6 +904,22 @@
         renderer.render(scene, camera);
       }
       animate();
+    import { GLTFExporter } from 'https://unpkg.com/three@0.155.0/examples/jsm/exporters/GLTFExporter.js';
+
+window.exportGLB = function () {
+  const exporter = new GLTFExporter();
+  exporter.parse(
+    scene, // your 3D scene
+    function (result) {
+      const blob = new Blob([result], { type: 'application/octet-stream' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'exported_model.glb';
+      link.click();
+    },
+    { binary: true }
+  );
+};
   </script>
   
 </body>
