@@ -23,34 +23,23 @@
   </style>
     </head>
 <body>
-    <div id="debugConsole" style="
-  position: fixed; top: 0; left: 0;
-  width: 100%; max-height: 150px;
-  overflow-y: auto;
-  background: rgba(0,0,0,0.7);
-  color: #0f0; font-family: monospace;
-  font-size: 12px; z-index: 9999;
-"></div>
+     <button onclick="window.exportGLB()">Export BMG1 as .glb</button>
+  <pre id="debugConsole" style="background: #111; color: #0f0; padding: 10px;"></pre>
 
-  
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/exporters/GLTFExporter.js"></script>
 
-    <button onclick="window.exportGLB()">Export BMG1 as .glb</button>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/exporters/GLTFExporter.js"></script>
-    <script>
-  const debugConsole = document.getElementById('debugConsole');
-  console.log = function(msg) {
-    debugConsole.innerText += msg + '\n';
-  };
-  console.error = console.log;
-</script>
-<script type="module">
-  
-      
-  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
-  
-  // Assuming BMG1 is already defined globally
-    import { OrbitControls } from 'https://esm.sh/three@0.158.0/examples/jsm/controls/OrbitControls';
-      
+  <script>
+    const debugConsole = document.getElementById('debugConsole');
+    console.log = function (msg) {
+      debugConsole.innerText += msg + '\n';
+    };
+    console.error = console.log;
+  </script>
+
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js';
+ 
   
     const scene = new THREE.Scene();
   // Load image as texture
@@ -932,6 +921,8 @@
         renderer.render(scene, camera);
       }
       animate();
+  </script>
+    <script>
 
 
   window.exportGLB = function () {
@@ -956,8 +947,5 @@
 };
     
 </script>
-    
-
-
 </body>
 </html>
