@@ -23,6 +23,22 @@
   </style>
     </head>
 <body>
+     
+  import { icegun } from './ig.js';
+     import { MMG } from './MMG.js';
+     import { pistol } from './p.js';
+     import { pistol2 } from './p1.js';
+     import { mg } from './mg.js';
+     import { ft } from './ft.js';
+    const BMG1 = new THREE.Group();
+    window.BMG1 = BMG1;
+     
+  function ic(){
+  BMG1.add(icekground:gray;
+         }
+  </style>
+    </head>
+<body>
      <button onclick="window.exportGLB()">Export BMG1 as .glb</button>
   <pre id="debugConsole" style="background: #111; color: #0f0; padding: 10px;"></pre>
 
@@ -39,7 +55,7 @@
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
     import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js';
- 
+ 
   
     const scene = new THREE.Scene();
   // Load image as texture
@@ -53,29 +69,18 @@
         const sky = new THREE.Mesh(geometry, material);
         scene.add(sky);
       });
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
-      const controls = new OrbitControls(camera, renderer.domElement);
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.05;
-  
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+
+      
   import { icegun } from './ig.js';
      import { MMG } from './MMG.js';
-     import { pistol } from './p.js';
-     import { pistol2 } from './p1.js';
-     import { mg } from './mg.js';
-     import { ft } from './ft.js';
-    const BMG1 = new THREE.Group();
-    window.BMG1 = BMG1;
-     
-  function ic(){
-  BMG1.add(icegun);
-  icegun.scale.set(0.5,0.5,0.5);
-    icegun.position.set(5,0.5,-3);
-    BMG1.add(MMG);
-  MMG.scale.set(0.6,0.6,0.6);
+    import {} from '':
     MMG.position.set(0,-5,-35);
     MMG.rotation.set(0,Math.PI,0);
     BMG1.add(pistol);
