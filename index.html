@@ -53,28 +53,29 @@
      import { pistol2 } from '/storage/emulated/0/@RS/p1.js';
      import { mg } from '/storage/emulated/0/@RS/mg.js';
      import { ft } from '/storage/emulated/0/@RS/ft.js';
-     function bbmgGroup(){
+     const BMG1 = new THREE.Group();
+    
   function ic(){
-  scene.add(icegun);
+  BMG1.add(icegun);
   icegun.scale.set(0.5,0.5,0.5);
     icegun.position.set(5,0.5,-3);
-    scene.add(MMG);
+    BMG1.add(MMG);
   MMG.scale.set(0.6,0.6,0.6);
     MMG.position.set(0,-5,-35);
     MMG.rotation.set(0,Math.PI,0);
-    scene.add(pistol);
+    BMG1.add(pistol);
   pistol.scale.set(0.4,0.4,0.4);
     pistol.position.set(3,-1,-6);
     pistol.rotation.set(0,0,0);
-    scene.add(pistol2);
+    BMG1.add(pistol2);
   pistol2.scale.set(0.4,0.4,0.4);
     pistol2.position.set(-3,-1,-6);
     pistol2.rotation.set(0,0,0);
-    scene.add(mg);
+    BMG1.add(mg);
   mg.scale.set(0.7,0.7,0.7);
     mg.position.set(14,1,-15);
     mg.rotation.set(0,Math.PI,0);
-    scene.add(ft);
+    BMG1.add(ft);
   ft.scale.set(0.7,0.7,0.7);
     ft.position.set(-14,1,-15);
     ft.rotation.set(0,Math.PI,0);
@@ -84,12 +85,12 @@
       //lighting
       const light = new THREE.DirectionalLight(0xffffff, 5);
       light.position.set(0, 10, 10);
-      scene.add(light);
+      BMG1.add(light);
   const light1 = new THREE.DirectionalLight(0xffffff, 5);
       light1.position.set(-20, 10, -10);
-      scene.add(light1);
+      BMG1.add(light1);
       
-  scene.add(new THREE.AmbientLight(0x000000));
+  BMG1.add(new THREE.AmbientLight(0x000000));
   
   //shapes(geometry)
       const material = new THREE.MeshStandardMaterial({ color: 0x000000,metalness:0.5,roughness:0.5 });
@@ -97,7 +98,7 @@
       
       
       
-  const BMG1 = new THREE.Group();
+  
 
   function BBMG(){
     const BBMG = new THREE.Group();
@@ -248,7 +249,7 @@
           cyl1.scale.set(6,2,6);
       BBMG.add(cyl1);
           
-          scene.add(BBMG);
+          BMG1.add(BBMG);
           BBMG.scale.set(0.5,0.5,0.5);
         
   }BBMG()
@@ -282,7 +283,7 @@
       sphere.position.set(0,0,7);
       NM.add(sphere);
     
-    scene.add(NM);
+    BMG1.add(NM);
     NM.position.z = -1;
   }NM()
   function MGBASE(){
@@ -338,7 +339,7 @@
     
     
     
-    scene.add(MGB);
+    BMG1.add(MGB);
   }MGBASE()
   function FTW(){
     const FTW = new THREE.Group();
@@ -357,7 +358,7 @@
     torus1.rotation.y = Math.PI/2;
     torus1.scale.set(2.5,1.5,2.5);
       FTW.add(torus1);
-    scene.add(FTW);
+    BMG1.add(FTW);
   }FTW()
   function C(){
     const C = new THREE.Group();
@@ -433,7 +434,7 @@
           cy1.scale.set(1.5,1.5,1.5);
       C.add(cy1);
     
-    scene.add(C);
+    BMG1.add(C);
     
     
   }C()
@@ -488,7 +489,7 @@
           cyl160.scale.set(1.5,4,1.5);
       WJ.add(cyl160);
     
-    scene.add(WJ);
+    BMG1.add(WJ);
   }WINGJET()
   function SEATBASE(){
     const SB = new THREE.Group();
@@ -578,7 +579,7 @@
     cue682.scale.set(2.5,0.2,5);
       SB.add(cue682);
     
-    scene.add(SB);
+    BMG1.add(SB);
   }SEATBASE()
   function ATOMB(){
     const ATOMB = new THREE.Group();
@@ -603,7 +604,7 @@
     cube68.rotation.x = Math.PI/2;
     cube68.scale.set(3,1,3);
       ATOMB.add(cube68);
-    scene.add(ATOMB);
+    BMG1.add(ATOMB);
   }ATOMB()
   function BNW(){
     const BNW = new THREE.Group();
@@ -622,7 +623,7 @@
     torus1.rotation.y = Math.PI/2;
     torus1.scale.set(1.7,1.7,2);
       BNW.add(torus1);
-    scene.add(BNW);
+    BMG1.add(BNW);
   }BNW()
   function BSML(){
     const BSML = new THREE.Group();
@@ -694,7 +695,7 @@
            BSML.add(cylinder223);
           
           
-    scene.add(BSML);
+    BMG1.add(BSML);
     BSML.position.y =-2.3;
   }BSML()
   function BASE(){
@@ -782,7 +783,7 @@
       torus.scale.set(0.5,0.5,12);
       torus.rotation.set(0,Math.PI/2,0);
       s.add(torus);
-      scene.add(s);
+      BMG1.add(s);
       s.position.set(-5.5,1,0);
     s.rotation.y = Math.PI/2;
     }sniper()
@@ -848,7 +849,7 @@
       torus.position.set(0,0,0);
       axe.add(torus);
     
-    scene.add(axe);
+    BMG1.add(axe);
     axe.position.set(3,2,-22);
       
       
@@ -888,12 +889,12 @@
       k.add(torus);
     
     
-    scene.add(k);
+    BMG1.add(k);
     k.scale.set(0.7,0.7,0.7);
     k.position.set(-5,-1,-22);
       
     }k()
-  }bbmgGroup()
+  scene.add(BMG1);
    
       camera.position.set(10,0,-50);
       function animate() {
